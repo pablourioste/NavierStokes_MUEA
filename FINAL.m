@@ -12,10 +12,12 @@
 %%%%%%%%%%%%%%%%%%%%     MESH     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-N = 32;   % control volumes per axis
-L = 1;    % domain size
+N = 32;   % control volumes in x
+M = 32;   % control volumes in y
+L = 1;    % domain size in x
+H = 1;    % domain size in y
 
-[xp,yp,xu,yu,xv,yv] = create_mesh(N,L);
+[xp,yp,xu,yu,xv,yv] = create_mesh(N,M,L,H);
 
 
 
