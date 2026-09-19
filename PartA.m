@@ -6,12 +6,22 @@
 main();
 
 function main()
+% Data:
+N=5;
+M=5;
+L=1;
+H=1;
+
 % Entry point: builds a test field and prints it
-F = build_test_field(5,5);
+mesh = create_mesh(N,M,L,H);
+
+plot_staggered_mesh(mesh);
+F = build_test_field(N,M);
 print_field(F);
 % Perform a halo update on the test field and print the updated field
 U = halo_update(F);
 print_field(U);
+
 
 end
 

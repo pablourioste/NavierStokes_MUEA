@@ -9,8 +9,8 @@ function print_field(F)
 
 name='Field';
 
-[M, N] = size(F);
-fprintf('\n================ %s (%dx%d) ================\n', name, M, N);
+[M_tot, N_tot] = size();
+fprintf('\n================ %s (%dx%d) ================\n', name, M_tot, N_tot);
 
 
 if (N<1000 && M<1000)
