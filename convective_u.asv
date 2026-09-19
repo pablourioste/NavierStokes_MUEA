@@ -1,0 +1,19 @@
+function cu = convective_u(u,v,hx,hy,mesh)
+% cu = convective_u(u,v,hx,hy)
+% Volume integral of the convective term of the x-momentum equation at
+% every inner u node. Halo of cu is not updated.
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+
+for i=2:1:N+1
+    for j=1:1:N+1
+        dx_plus=s*mesh.XU()
+        ue = (u(i+1,j)+u(i,j))/2;
+        uw = (u(i,j)+u(i-1,j))/2;
+        un = (u(i,j+1)+u(i,j))/2;
+        us = (u(i,j)+u(i,j-1))/2;
+        Fe = (u(i+1,j)*dy+u(i,j)+dy)/2;
+        cu(i,j)=ueFe-uwFw+unFn-usFs;
+    end
+end
+
+end

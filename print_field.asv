@@ -1,4 +1,4 @@
-function print_field(F)
+function print_field(F,name)
 % print_field(u)
 % Prints a 2D field using the project convention: first index (i) is the
 % horizontal position (left to right), second index (j) is the vertical
@@ -9,8 +9,8 @@ function print_field(F)
 
 name='Field';
 
-[M_tot, N_tot] = size();
-fprintf('\n================ %s (%dx%d) ================\n', name, M_tot, N_tot);
+[M, N] = size(F);
+fprintf('\n================ %s (%dx%d) ================\n', name, M, N);
 
 
 if (N<1000 && M<1000)

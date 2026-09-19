@@ -1,4 +1,4 @@
-function print_field(F)
+function print_field(F,name)
 % print_field(u)
 % Prints a 2D field using the project convention: first index (i) is the
 % horizontal position (left to right), second index (j) is the vertical
@@ -7,7 +7,9 @@ function print_field(F)
 %   u: field to print (matrix, halo included)
 % Author: Pablo Urioste // Marc Antich // Martí Esquerda
 
-name='Field';
+if nargin < 2 || isempty(name)
+    name = 'Field';
+end
 
 [M, N] = size(F);
 fprintf('\n================ %s (%dx%d) ================\n', name, M, N);
