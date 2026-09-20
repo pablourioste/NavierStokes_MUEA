@@ -11,14 +11,13 @@ if nargin < 2 || isempty(name)
     name = 'Field';
 end
 
-[M, N] = size(F);
-fprintf('\n================ %s (%dx%d) ================\n', name, M, N);
+[Nx, Ny] = size(F);
+fprintf('\n================ %s (%dx%d) ================\n', name, Nx, Ny);
 
-
-if (N<1000 && M<1000)
-    for j = M:-1:1
+if (Nx < 1000 && Ny < 1000)
+    for j = Ny:-1:1
         fprintf('j=%2d | ', j);
-        for i = 1:N
+        for i = 1:Nx
             fprintf('%+6.2f ', F(i, j));
         end
         fprintf('\n');
