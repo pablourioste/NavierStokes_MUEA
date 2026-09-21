@@ -5,8 +5,8 @@
 clear; clc; close all;
 
 %% 1. Parámetros del Dominio
-N = 3; % Número de celdas en x
-M = 3; % Número de celdas en y
+N = 30; % Número de celdas en x
+M = 10; % Número de celdas en y
 L = 1; % Longitud en x
 H = 1; % Altura en y
 
