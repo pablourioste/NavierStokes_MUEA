@@ -1,4 +1,4 @@
-function du = diffusive_u(u,mesh)
+function du = diffusive_u(u,hx,hy,mesh)
 % du = diffusive_u(u,hx,hy)
 % Volume integral of the diffusive term of the x-momentum equation at
 % every inner u node, without the viscosity (multiply by nu outside).
@@ -6,8 +6,6 @@ function du = diffusive_u(u,mesh)
 % Author: Pablo Urioste // Marc Antich // Martí Esquerda
 
 du = zeros(size(u));
-N=mesh.N;
-M=mesh.M;
 
 for i=2:1:N+1
     dx=mesh.xv(i+1)-mesh.xv(i);
@@ -22,17 +20,16 @@ for i=2:1:N+1
         uS=u(i,j-1);
 
         %Definition of distances:
-        xP=mesh.xu(i);
-        yP=mesh.yu(j);
         xE=mesh.xu(i+1);
+        xP=mesh.xu(i);
         xW=mesh.xu(i-1);
-        yN=mesh.yu(j+1);
-        yS=mesh.yu(j-1);
+        xN=mesh.yu(j+1);
+        xS=mesh.yu(j-1);
 
         du_est=(uE-uP)/(xE-xP);
         du_west=(uP-uW)/(xP-xW);
-        du_nord=(uN-uP)/(yN-yP);
-        du_south=(uP-uS)/(yP-yS);
+        du_nord=(uN-uP)/(xN-xP);
+        du_south=(uP-uS)/(xP-xS);
 
         du(i,j) = dy*(du_est-du_west) + dx*(du_nord-du_south);
     end

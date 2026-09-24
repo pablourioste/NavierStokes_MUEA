@@ -1,3 +1,6 @@
+
+
+
 function U = halo_update(u)
 % U = halo_update(u)
 % Fills the halo (first and last row/column) of a periodic field by
@@ -15,7 +18,7 @@ U = zeros(N,M);
 
 % Inner nodes are preserved
 for i = 2:N-1
-    for j = 2:M-10
+    for j = 2:M-1
         U(i,j) = u(i,j);
     end
 end

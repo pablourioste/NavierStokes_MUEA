@@ -6,8 +6,7 @@ function dv = diffusive_v(v,mesh)
 % Author: Pablo Urioste // Marc Antich // Martí Esquerda
 
 dv = zeros(size(v));
-N=mesh.N;
-M=mesh.M;
+
 for i=2:1:N+1
     dx=mesh.xu(i)-mesh.xu(i-1);
     for j=2:1:M+1
@@ -16,24 +15,23 @@ for i=2:1:N+1
         % Definition of velocities:
         vE=v(i+1,j);
         vP=v(i,j);
-        vW=v(i-1,j);
-        vN=v(i,j+1);
-        vS=v(i,j-1);
+        vW=u(i-1,j);
+        vN=u(i,j+1);
+        vS=u(i,j-1);
 
         %Definition of distances:
-        xP=mesh.xv(i);
-        yP=mesh.yv(j);
-        xE=mesh.xv(i+1);
-        xW=mesh.xv(i-1);
-        yN=mesh.yv(j+1);
-        yS=mesh.yv(j-1);
+        xE=mesh.xu(i+1);
+        xP=mesh.xu(i);
+        xW=mesh.xu(i-1);
+        xN=mesh.yu(j+1);
+        xS=mesh.yu(j-1);
 
-        dv_est=(vE-vP)/(xE-xP);
-        dv_west=(vP-vW)/(xP-xW);
-        dv_nord=(vN-vP)/(yN-yP);
-        dv_south=(vP-vS)/(yP-yS);
+        du_est=(vE-uP)/(xE-xP);
+        du_west=(uP-uW)/(xP-xW);
+        du_nord=(vN-uP)/(xN-xP);
+        du_south=(uP-vS)/(xP-xS);
 
-        dv(i,j) = dy*(dv_est-dv_west) + dx*(dv_nord-dv_south);
+        dv(i,j) = dy*(du_est-du_west) + dx*(du_nord-du_south);
     end
 end
 

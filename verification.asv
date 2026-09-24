@@ -1,0 +1,9 @@
+function [L2_error, e]=verification(mesh,f_analytic,f_numeric)
+
+% We take the analytic function and evaluate it at all points where we have
+% nodes of the mesh.
+x_coord=mesh.x;
+
+
+
+end
