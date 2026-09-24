@@ -25,10 +25,10 @@ yu = yp;
 xv = xp;
 yv = yp + hy / 2;
 
-% 2. Meshgrid matrices for node locations
-[XP, YP] = meshgrid(xp, yp);
-[XU, YU] = meshgrid(xu, yu);
-[XV, YV] = meshgrid(xv, yv);
+% 2. Coordinate matrices for node locations (oriented i=x, j=y)
+[XP, YP] = ndgrid(xp, yp);
+[XU, YU] = ndgrid(xu, yu);
+[XV, YV] = ndgrid(xv, yv);
 
 % 3. Geometrical properties (assuming unit depth W = 1)
 % Convention: first index is x (N+2), second index is y (M+2)
