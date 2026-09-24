@@ -35,6 +35,8 @@ for i=2:1:N+1
         du_south=(uP-uS)/(yP-yS);
 
         du(i,j) = dy*(du_est-du_west) + dx*(du_nord-du_south);
+        % Correction to eliminate the integration
+        du(i,j) = du(i,j) / (dx*dy);
     end
 end
 

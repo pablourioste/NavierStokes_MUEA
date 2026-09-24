@@ -34,6 +34,8 @@ for i=2:1:N+1
         dv_south=(vP-vS)/(yP-yS);
 
         dv(i,j) = dy*(dv_est-dv_west) + dx*(dv_nord-dv_south);
+        % Correction to eliminate the integration
+        dv(i,j) = dv(i,j) / (dx*dy);
     end
 end
 

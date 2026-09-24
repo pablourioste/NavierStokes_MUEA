@@ -1,4 +1,4 @@
-function cv = convective_v(u,v,hx,hy,mesh)
+function cv = convective_v(u,v,mesh)
 % cv = convective_v(u,v,hx,hy,mesh)
 % Volume integral of the convective term of the y-momentum equation at
 % every inner v node. Halo of cv is not updated.
@@ -9,28 +9,12 @@ M = size(v, 2) - 2; % Número de celdas interiores en y
 
 cv = zeros(size(v));
 
-if nargin == 3
-    L = hx;
-    hx = L / N;
-    hy = L / M;
-end
-
-use_mesh = (nargin >= 5 && isfield(mesh, 'xu') && isfield(mesh, 'yu'));
-
 for i = 2:N+1
-    if use_mesh
-        dx = mesh.xu(i) - mesh.xu(i-1);
-    else
-        dx = hx;
-    end
+    dx = mesh.xu(i) - mesh.xu(i-1);
     for j = 2:M+1
-        if use_mesh
-            dy_plus  = mesh.yu(j+1) - mesh.yu(j);
-            dy_minus = mesh.yu(j)   - mesh.yu(j-1);
-        else
-            dy_plus  = hy;
-            dy_minus = hy;
-        end
+        dy_plus  = mesh.yu(j+1) - mesh.yu(j);
+        dy_minus = mesh.yu(j)   - mesh.yu(j-1);
+        dy  = mesh.yp(j+1) - mesh.yp(j);   
        
         vn = (v(i,j+1) + v(i,j)) / 2;
         vs = (v(i,j-1) + v(i,j)) / 2;
@@ -43,6 +27,8 @@ for i = 2:N+1
         Fw = (u(i-1,j)*dy_minus + u(i-1,j+1)*dy_plus) / 2;
         
         cv(i,j) = vn*Fn - vs*Fs + ve*Fe - vw*Fw;
+        % Correction to eliminate the integration
+        cv(i,j) = cv(i,j) / (dx*dy);
     end
 end
 end
