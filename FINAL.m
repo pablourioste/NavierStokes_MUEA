@@ -1,5 +1,5 @@
 %% Aerodinamica, Mecanica de Vol i Orbital - Project: FINAL VERSION NS equations
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 % Last version: 16/09/2026 --19:00
 
 

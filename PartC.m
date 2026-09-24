@@ -1,5 +1,5 @@
 %% Aerodinamica, Mecanica de Vol i Orbital - Project: Part C
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 % Implement and verify time integration
 
 main();

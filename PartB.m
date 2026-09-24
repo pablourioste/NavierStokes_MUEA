@@ -1,5 +1,5 @@
 %% Aerodinamica, Mecanica de Vol i Orbital - Project: Part B
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 % Implement and verify pressure-velocity coupling
 
 main();

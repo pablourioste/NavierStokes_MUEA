@@ -1,9 +1,9 @@
 function du = diffusive_u(u,mesh)
-% du = diffusive_u(u,hx,hy)
-% Volume integral of the diffusive term of the x-momentum equation at
-% every inner u node, without the viscosity (multiply by nu outside).
+% du = diffusive_u(u,mesh)
+% Evaluates the diffusive term of the x-momentum equation at
+% every inner u node (divided by cell volume), without viscosity (multiply by nu outside).
 % Halo of du is not updated.
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
 du = zeros(size(u));
 N=mesh.N;
@@ -14,14 +14,14 @@ for i=2:1:N+1
     for j=2:1:M+1
         dy=mesh.yv(j)-mesh.yv(j-1);
         
-        % Definition of velocities:
+        % Velocity definitions:
         uE=u(i+1,j);
         uP=u(i,j);
         uW=u(i-1,j);
         uN=u(i,j+1);
         uS=u(i,j-1);
 
-        %Definition of distances:
+        % Coordinate distances:
         xP=mesh.xu(i);
         yP=mesh.yu(j);
         xE=mesh.xu(i+1);
@@ -35,7 +35,7 @@ for i=2:1:N+1
         du_south=(uP-uS)/(yP-yS);
 
         du(i,j) = dy*(du_est-du_west) + dx*(du_nord-du_south);
-        % Correction to eliminate the integration
+        % Divide by cell volume to obtain the differential operator
         du(i,j) = du(i,j) / (dx*dy);
     end
 end

@@ -1,11 +1,11 @@
 function cu = convective_u(u,v,mesh)
-% cu = convective_u(u,v,hx,hy,mesh)
-% Volume integral of the convective term of the x-momentum equation at
-% every inner u node. Halo of cu is not updated.
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% cu = convective_u(u,v,mesh)
+% Evaluates the convective term of the x-momentum equation at
+% every inner u node (divided by cell volume). Halo of cu is not updated.
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
-N = size(u, 1) - 2; % Número de celdas interiores en x
-M = size(u, 2) - 2; % Número de celdas interiores en y
+N = size(u, 1) - 2; % Number of interior cells in x
+M = size(u, 2) - 2; % Number of interior cells in y
 
 cu = zeros(size(u));
 
@@ -28,7 +28,7 @@ for i = 2:N+1
 
         cu(i,j) = ue*Fe - uw*Fw + un*Fn - us*Fs;
 
-        % Correction to eliminate the integration
+        % Divide by cell volume to obtain the differential operator
         cu(i,j) = cu(i,j) / (dx*dy);
     end
 end

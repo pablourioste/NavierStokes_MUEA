@@ -8,6 +8,7 @@ function mesh = create_mesh(N, M, L, H)
 % Output:
 %   mesh - Structure containing node coordinates, control volume surfaces, and volumes.
 %   xp, yp, xu, yu, xv, yv - Node coordinate vectors (if called with multiple outputs).
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
 hx = L / N;
 hy = H / M;

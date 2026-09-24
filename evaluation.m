@@ -1,18 +1,22 @@
 function f_eval = evaluation(f_analytic, nodes)
-    % f_analytic: Expresión o vector simbólico (ej: [u1; u2])
-    % nodes: Matriz N x M x d (capa 1 es X, capa 2 es Y)
-    % f_eval: Matriz N x M x num_componentes
+    % EVALUATION Evaluates symbolic expression or vector over grid nodes.
+    % Input:
+    %   f_analytic - Symbolic expression or vector (e.g., [u1; u2])
+    %   nodes      - Array of size N x M x d (layer 1: X, layer 2: Y)
+    % Output:
+    %   f_eval     - Evaluated numerical array of size N x M x num_components
+    % Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
     
     vars = symvar(f_analytic);
     
-    % Extraer capas de coordenadas en celdas para pasar a matlabFunction
+    % Extract coordinate layers into cells for matlabFunction input
     n_vars = length(vars);
     args = cell(1, n_vars);
     for k = 1:n_vars
         args{k} = nodes(:, :, k);
     end
     
-    % Evaluar cada componente del vector simbólico por separado
+    % Evaluate each component of the symbolic vector individually
     num_comp = numel(f_analytic);
     [N, M, ~] = size(nodes);
     f_eval = zeros(N, M, num_comp);

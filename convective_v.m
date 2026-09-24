@@ -1,11 +1,11 @@
 function cv = convective_v(u,v,mesh)
-% cv = convective_v(u,v,hx,hy,mesh)
-% Volume integral of the convective term of the y-momentum equation at
-% every inner v node. Halo of cv is not updated.
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% cv = convective_v(u,v,mesh)
+% Evaluates the convective term of the y-momentum equation at
+% every inner v node (divided by cell volume). Halo of cv is not updated.
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
-N = size(v, 1) - 2; % Número de celdas interiores en x
-M = size(v, 2) - 2; % Número de celdas interiores en y
+N = size(v, 1) - 2; % Number of interior cells in x
+M = size(v, 2) - 2; % Number of interior cells in y
 
 cv = zeros(size(v));
 
@@ -27,7 +27,7 @@ for i = 2:N+1
         Fw = (u(i-1,j)*dy_minus + u(i-1,j+1)*dy_plus) / 2;
         
         cv(i,j) = vn*Fn - vs*Fs + ve*Fe - vw*Fw;
-        % Correction to eliminate the integration
+        % Divide by cell volume to obtain the differential operator
         cv(i,j) = cv(i,j) / (dx*dy);
     end
 end

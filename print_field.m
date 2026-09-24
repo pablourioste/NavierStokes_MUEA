@@ -5,7 +5,7 @@ function print_field(F,name)
 % position (bottom to top). Halo nodes are printed as well.
 % Input:
 %   u: field to print (matrix, halo included)
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
 if nargin < 2 || isempty(name)
     name = 'Field';

@@ -1,9 +1,9 @@
 function dv = diffusive_v(v,mesh)
-% dv = diffusive_v(v,hx,hy)
-% Volume integral of the diffusive term of the y-momentum equation at
-% every inner v node, without the viscosity (multiply by nu outside).
+% dv = diffusive_v(v,mesh)
+% Evaluates the diffusive term of the y-momentum equation at
+% every inner v node (divided by cell volume), without viscosity (multiply by nu outside).
 % Halo of dv is not updated.
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
 dv = zeros(size(v));
 N=mesh.N;
@@ -13,14 +13,14 @@ for i=2:1:N+1
     for j=2:1:M+1
         dy=mesh.yu(j+1)-mesh.yu(j);
 
-        % Definition of velocities:
+        % Velocity definitions:
         vE=v(i+1,j);
         vP=v(i,j);
         vW=v(i-1,j);
         vN=v(i,j+1);
         vS=v(i,j-1);
 
-        %Definition of distances:
+        % Coordinate distances:
         xP=mesh.xv(i);
         yP=mesh.yv(j);
         xE=mesh.xv(i+1);
@@ -34,7 +34,7 @@ for i=2:1:N+1
         dv_south=(vP-vS)/(yP-yS);
 
         dv(i,j) = dy*(dv_est-dv_west) + dx*(dv_nord-dv_south);
-        % Correction to eliminate the integration
+        % Divide by cell volume to obtain the differential operator
         dv(i,j) = dv(i,j) / (dx*dy);
     end
 end

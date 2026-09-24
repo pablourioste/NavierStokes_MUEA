@@ -2,7 +2,7 @@ function [u,v] = set_velocity_field(xu,yu,xv,yv,fu,fv)
 % [u,v] = set_velocity_field(xu,yu,xv,yv,fu,fv)
 % Evaluates the analytic functions fu(x,y), fv(x,y) at the u and v nodes.
 % Halo included (halo coordinates are the periodic images).
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
 N = length(xu);
 M = length(yu);

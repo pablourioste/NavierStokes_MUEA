@@ -10,7 +10,7 @@ function U = halo_update(u)
 %   u: field with a 1-node halo on each side
 % Output:
 %   U: same field with the halo updated
-% Author: Pablo Urioste // Marc Antich // Martí Esquerda
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
 N = size(u,1);
 M = size(u,2);

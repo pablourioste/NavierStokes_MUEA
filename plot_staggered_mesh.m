@@ -1,5 +1,6 @@
 function plot_staggered_mesh(mesh)
 % PLOT_STAGGERED_MESH Visualizes the staggered grid, CV walls, and nodes.
+% Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
 
 figure('Name', 'Staggered Grid Mesh Visualization', 'Color', 'w');
 hold on;
