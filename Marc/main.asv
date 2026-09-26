@@ -1,0 +1,4 @@
+syms x y
+
+us=cos(2*pi*x)*sin(2*pi*y);
+vs=-cos(2*pi*x)*sin(2*pi*y);

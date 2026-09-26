@@ -1,0 +1,14 @@
+function print_field(F)
+
+[M,N]=size(F);
+
+if (N<1000 && M<1000)
+    for j = M:-1:1 % Va desde M y le va restando 1 hasta llegar a la pos. 1(se invierte la columna)
+        fprintf('j=%2d  ',j);
+        for i=1:N
+            fprintf(' %+8.3e' , u(i,j));
+        end
+    end
+
+
+end

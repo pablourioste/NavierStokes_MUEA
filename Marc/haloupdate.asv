@@ -1,0 +1,30 @@
+function U =halo_update(u)
+
+% Tanto N como M ya contempla que son +2
+N = size(u,1); % Mida de u files
+M = size(u,2); % % Mida de u columnes
+
+U = size (N , M);
+
+% Iteraciones de dentro
+
+for i=2:N-1
+    for j=2:M-1
+        U(i,j)=u(i,j);
+    end
+
+end
+
+% Update de las horizontales
+
+for i=2:N-1
+    U(i,1) = u(i,M-1);
+    U(i,M) = u(i,2);
+end
+
+% Update de las horizontales
+
+for j=2:M-1
+    U(1,j) = u(N-1, j);
+    U(N,j) = u();
+end
