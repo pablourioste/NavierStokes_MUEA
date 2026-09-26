@@ -35,9 +35,9 @@ for j = 2:M+1                       % Paso por cada celda...
         A(p, est)  = 1;           %    ...y 1 en la columna de cada vecino
         A(p, west) = 1;
         A(p, north) = 1;
-        A(p, south)   = 1;
+        A(, south)   = 1;
     end
 end
 
-A(1,1) = -5;                        %  Quitar la singularidad (p.56)
+A(1,1) = -5;                        % 6. Quitar la singularidad (p.56)
 end
