@@ -1,0 +1,8 @@
+function [gx,gy]=gradient(mesh,s)
+
+% This function compues a generic gradient from a generic escalar field s
+for j=2:N+1
+gx=s(i+1,j)-s(i,j)/(delta_x);
+end
+
+end
