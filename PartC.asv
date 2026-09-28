@@ -10,16 +10,57 @@ M = 3;
 L = 1.0;
 H = 1.0;
 
+nu=0.01;
+t_final=0.5;
+f_cfl=0.1;
+
 mesh = create_mesh(N, M, L, H);
 
-%% 2. Arbitrary predictor velocity field
-% Zero everywhere except a single perturbation: u^p(3,3) = 1.0
-u_p = zeros(N + 2, M + 2);
-v_p = zeros(N + 2, M + 2);
-u_p(3, 3) = 1.0;
+% Precomputation of Laplacian matrix:
+A = laplacianMatrix(mesh);
 
-u_p = halo_update(u_p);
-v_p = halo_update(v_p);
+% Initialization of velocities fields:
+[u1_sym, u2_sym] = get_analytical_solution();
+fu = matlabFunction(u1_sym, 'Vars', [sym('x'), sym('y')]);
+fv = matlabFunction(u2_sym, 'Vars', [sym('x'), sym('y')]);
+
+[u, v] = set_velocity_field(mesh.xu, mesh.yu, mesh.xv, mesh.yv, fu, fv);
+u = halo_update(u);
+v = halo_update(v);
+
+t=0;
+step=0;
+
+Ru_prev =[];
+Rv_prev =[];
+
+% Bucle temporal
+
+while t<t_final
+    step=+1;
+    [dt,dt_c,dt_d]=time_stability(mesh,u,v,nu,f_cfl);
+    
+    % Verificació de si t ha arribat a la solució final
+
+    if t+dt>t_final
+        dt = t_final -t;
+    end
+
+    % Pas 1: Calcular R i Rprev
+    [Ru,Rv]=evaluate(u,v,nu,Mesh);
+
+    if step==1
+        up=u+dt*Ru;
+        vp=v+dt*Rv;
+    else
+        up=delta_t*(3/2*R_u-1/2*Rprev_u);
+        vp=delta_t*(3/2*R_v-1/2*Rprev_v);
+    end
+end
+
+
+up=delta_t*(3/2*R_u-1/2*Rprev_u);
+vp=delta_t*(3/2*R_v-1/2*Rprev_v);
 
 %% 3. Step 1: Integrated divergence of u^p
 d_p = diverg(u_p, v_p, mesh);
@@ -57,3 +98,10 @@ max_div_after  = max(abs(d_next(2:N+1, 2:M+1)), [], 'all');
 
 fprintf('Maximum divergence before correction: %e\n', max_div_before);
 fprintf('Maximum divergence after correction : %e\n', max_div_after);
+
+
+function [u1, u2] = get_analytical_solution()
+syms x y;
+u1 = cos(2*pi*x)*sin(2*pi*y);
+u2 = -sin(2*pi*x)*cos(2*pi*y);
+end

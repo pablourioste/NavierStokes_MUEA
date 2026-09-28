@@ -1,8 +1,8 @@
 clear; clc; close all;
 
 %% 1. Domain Parameters & Staggered Mesh Generation
-N = 16;
-M = 16;
+N = 3;
+M = 3;
 L = 1.0;
 H = 1.0;
 
@@ -31,7 +31,7 @@ v = halo_update(v);
 
 %% 5. Spatial Operator Verification
 N_vec = [10, 20, 40, 80, 160;
-         100, 200, 400, 800, 1600];
+         10, 20, 400, 60, 160];
 verification_results = verification(u1_sym, u2_sym, N_vec);
 
 % Repeat verification and see what happens when we multiply function u1_sym

@@ -1,48 +1,32 @@
-function A = laplacianMatrix(mesh)
-%% LAPLACIANMATRIX Constructs the discrete Laplacian matrix with periodic BCs.
+function A = laplacianMatrix_marc(mesh)
+%% LAPLACIANMATRIX_MARC Constructs the discrete Laplacian matrix with periodic BCs.
 % Author: Pablo Urioste // Marc Antich // Martí Esquerda // Iván Aguilar
+% Computes neighbor indices using Marc's index map method (vector2field + halo_update).
 % Supports non-uniform rectangular grids directly from the mesh structure.
 
 N = mesh.N;
 M = mesh.M;
 
-A = sparse(N*M, N*M);
+% 1) Index map: K(i,j) = position of cell (i,j) in the algebraic vector.
+%    vector2field places the numbers 1..N*M in the interior cells and
+%    halo_update automatically wraps the periodic boundary neighbours.
+K = vector2field((1:N*M)', mesh);
+K = halo_update(K);
 
+% 2) Sparse matrix initialization
+A = sparse(N*M, N*M);
 
 for j = 2:M+1
     for i = 2:N+1
-        % 1D index of current cell (equation row)
-        p = (j - 2)*N + (i - 1);
-        
-        % East neighbor (periodic wrap-around at right boundary)
-        if i < N+1
-            east = p + 1;
-        else
-            east = p - (N - 1);
-        end
-        
-        % West neighbor (periodic wrap-around at left boundary)
-        if i > 2
-            west = p - 1;
-        else
-            west = p + (N - 1);
-        end
-        % North neighbor (periodic wrap-around at top boundary)
-        if j < M+1
-            north = p + N;
-        else
-            north = p - (M - 1)*N;
-        end
-        
-        % South neighbor (periodic wrap-around at bottom boundary)
-        if j > 2
-            south = p - N;
-        else
-            south = p + (M - 1)*N;
-        end
+        % Cell and neighbor indices from index map K (Marc's method)
+        p     = K(i, j);
+        east  = K(i+1, j);
+        west  = K(i-1, j);
+        north = K(i, j+1);
+        south = K(i, j-1);
         
         % Flux weights for finite volume Laplacian
-    
+        
         % Cell face dimensions (surface areas)
         dx = mesh.xu(i) - mesh.xu(i-1);
         dy = mesh.yv(j) - mesh.yv(j-1);

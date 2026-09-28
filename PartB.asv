@@ -21,7 +21,7 @@ u_p(3, 3) = 1.0;
 u_p = halo_update(u_p);
 v_p = halo_update(v_p);
 
-%% 3. Step 1: Integrated divergence of u^p
+%% 3. Step 1: Integrated divergence of u^p (Slide 61, arrow 1)
 d_p = diverg(u_p, v_p, mesh);
 print_field(d_p, 'Divergence of u^p (before correction)');
 
@@ -29,16 +29,16 @@ print_field(d_p, 'Divergence of u^p (before correction)');
 sum_div_p = sum(d_p(2:N+1, 2:M+1), 'all');
 fprintf('Sum of divergence of u^p: %e\n\n', sum_div_p);
 
-%% 4. Step 2: Laplacian matrix
+%% 4. Step 2: Laplacian matrix (Slide 61, arrow 2)
 A = laplacianMatrix(mesh);
 
-%% 5. Step 3: Field to algebraic vector
+%% 5. Step 3: Field to algebraic vector (Slide 61, arrow 3)
 b = field2vector(d_p, mesh);
 
-%% 6. Step 4: Solve Poisson linear system: A * p = b
+%% 6. Step 4: Solve Poisson linear system: A * p = b (Slide 61, step 4)
 p = A \ b;
 
-%% 7. Step 5: Vector to 2D field and halo update
+%% 7. Step 5: Vector to 2D field and halo update (Slide 61, arrow 5)
 P = vector2field(p, mesh);
 
 %% 8. Step 6: Gradient of pseudo-pressure & velocity correction
